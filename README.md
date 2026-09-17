@@ -127,11 +127,11 @@ publishing through GitHub is a separate, explicitly authorized operation.
 
 ## License
 
-[MIT](LICENSE). This extraction was explicitly authorized for source publication
-and MIT licensing. No repository-level license was present in that application,
-so no license for the application as a whole is inferred. The grant here applies
-only to this standalone gem. No unverified copyright holder or
-ownership-transfer claim is added.
+This standalone gem is distributed under [MIT](LICENSE). No repository-level
+license was present in the original application, so no license for the
+application as a whole is inferred. The grant here applies only to this
+standalone gem. No unverified copyright holder or ownership-transfer claim is
+added.
 
 Lookbook is a separate MIT-licensed dependency, copyright 2021 Mark Perkins. Its
 code and assets are not vendored here and retain their own license.
