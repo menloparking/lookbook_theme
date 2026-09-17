@@ -1,0 +1,89 @@
+:root[data-lookbook-color-scheme] {
+  color-scheme: light dark;
+  --lookbook-text: light-dark(var(--lookbook-base-800), var(--lookbook-base-100));
+  --lookbook-divider: light-dark(var(--lookbook-base-300), var(--lookbook-base-700));
+  --lookbook-icon-button-stroke: var(--lookbook-base-400);
+  --lookbook-icon-button-stroke-hover: light-dark(var(--lookbook-accent-600), var(--lookbook-accent-300));
+  --lookbook-dropdown-bg: light-dark(var(--lookbook-white), var(--lookbook-base-800));
+  --lookbook-dropdown-text: var(--lookbook-text);
+  --lookbook-scrollbar: light-dark(var(--lookbook-base-200), var(--lookbook-base-700));
+  --lookbook-scrollbar-hover: light-dark(var(--lookbook-base-300), var(--lookbook-base-600));
+  --lookbook-toolbar-bg: light-dark(var(--lookbook-white), var(--lookbook-base-800));
+  --lookbook-nav-text: var(--lookbook-text);
+  --lookbook-nav-toggle: light-dark(var(--lookbook-base-500), var(--lookbook-base-400));
+  --lookbook-nav-icon-stroke: light-dark(var(--lookbook-accent-500), var(--lookbook-accent-300));
+  --lookbook-nav-item-hover: light-dark(var(--lookbook-base-100), var(--lookbook-base-700));
+  --lookbook-nav-item-active: light-dark(var(--lookbook-accent-50), var(--lookbook-accent-900));
+  --lookbook-input-bg: light-dark(var(--lookbook-white), var(--lookbook-base-900));
+  --lookbook-input-border: light-dark(var(--lookbook-base-300), var(--lookbook-base-600));
+  --lookbook-input-border-focus: light-dark(var(--lookbook-accent-200), var(--lookbook-accent-400));
+  --lookbook-input-text: light-dark(var(--lookbook-base-600), var(--lookbook-base-100));
+  --lookbook-input-text-placeholder: light-dark(var(--lookbook-base-400), var(--lookbook-base-500));
+  --lookbook-input-toggle: light-dark(var(--lookbook-base-300), var(--lookbook-base-600));
+  --lookbook-prose-bg: light-dark(var(--lookbook-white), var(--lookbook-base-900));
+  --lookbook-prose-text: light-dark(var(--lookbook-base-600), var(--lookbook-base-200));
+  --lookbook-prose-link: light-dark(var(--lookbook-accent-900), var(--lookbook-accent-300));
+  --lookbook-tabs-text: var(--lookbook-base-500);
+  --lookbook-tabs-text-hover: light-dark(var(--lookbook-base-700), var(--lookbook-base-100));
+  --lookbook-tabs-text-disabled: light-dark(var(--lookbook-base-300), var(--lookbook-base-600));
+  --lookbook-viewport-handle: light-dark(var(--lookbook-white), var(--lookbook-base-800));
+  --lookbook-viewport-handle-icon-stroke: light-dark(var(--lookbook-base-300), var(--lookbook-base-500));
+  --lookbook-viewport-handle-icon-stroke-hover: light-dark(var(--lookbook-base-700), var(--lookbook-base-200));
+  --lookbook-sidebar-bg: light-dark(var(--lookbook-base-50), var(--lookbook-base-900));
+  --lookbook-page-bg: light-dark(var(--lookbook-white), var(--lookbook-base-900));
+  --lookbook-drawer-bg: light-dark(var(--lookbook-base-50), var(--lookbook-base-900));
+  --lookbook-params-editor-bg: light-dark(var(--lookbook-white), var(--lookbook-base-800));
+  --lookbook-message-bg: light-dark(var(--lookbook-white), var(--lookbook-base-800));
+  --lookbook-message-title: light-dark(var(--lookbook-base-600), var(--lookbook-base-100));
+  --lookbook-message-text: var(--lookbook-text);
+  --lookbook-page-header-bg: light-dark(var(--lookbook-base-50), var(--lookbook-base-900));
+  --lookbook-page-header-text: var(--lookbook-text);
+  --lookbook-embed-title: var(--lookbook-text);
+  --lookbook-checker-bg: light-dark(var(--lookbook-base-100), var(--lookbook-base-900));
+  --lookbook-checker-cell: light-dark(var(--lookbook-base-200), var(--lookbook-base-800));
+}
+
+:root[data-lookbook-color-scheme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-lookbook-color-scheme="light"] {
+  color-scheme: light;
+}
+
+.lookbook-theme-select {
+  appearance: auto;
+  background: color-mix(in srgb, var(--lookbook-header-bg), white 10%);
+  border: 1px solid color-mix(in srgb, var(--lookbook-header-text), transparent 65%);
+  border-radius: 0.375rem;
+  color: var(--lookbook-header-text);
+  cursor: pointer;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  height: 1.75rem;
+  margin-right: 0.25rem;
+  padding: 0 0.375rem;
+}
+
+.lookbook-theme-select:focus-visible {
+  outline: 2px solid var(--lookbook-header-text);
+  outline-offset: 1px;
+}
+
+.lookbook-theme-select option {
+  background: var(--lookbook-dropdown-bg);
+  color: var(--lookbook-dropdown-text);
+}
+
+/* Lookbook's fixed near-white checker is too bright against the dark theme. */
+:root[data-lookbook-color-scheme] [data-component="viewport"],
+:root[data-lookbook-color-scheme] .bg-checked {
+  background-color: var(--lookbook-checker-bg);
+  background-image:
+    linear-gradient(45deg, var(--lookbook-checker-cell) 25%, transparent 25%,
+      transparent 75%, var(--lookbook-checker-cell) 75%),
+    linear-gradient(45deg, var(--lookbook-checker-cell) 25%, transparent 25%,
+      transparent 75%, var(--lookbook-checker-cell) 75%);
+  background-position: 0 0, 4px 4px;
+  background-size: 8px 8px;
+}

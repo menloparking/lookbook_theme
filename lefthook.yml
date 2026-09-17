@@ -1,0 +1,11 @@
+pre-commit:
+  commands:
+    markdown:
+      glob: "*.md"
+      run: npx --no-install prettier --write {staged_files}
+      stage_fixed: true
+    ruby:
+      glob: "*.{rb,gemspec}"
+      run: bundle exec standardrb {staged_files}
+    whitespace:
+      run: git diff --cached --check

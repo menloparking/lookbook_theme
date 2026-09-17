@@ -1,0 +1,10 @@
+/.bundle/
+/Gemfile.lock
+/MEMORY.md
+/TASKS.md
+/*.gem
+/node_modules/
+/pkg/
+/test-results/
+/test/dummy/log/
+/test/dummy/tmp/
