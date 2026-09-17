@@ -4,7 +4,7 @@ require_relative "middleware"
 module LookbookTheme
   class Railtie < Rails::Railtie
     config.lookbook_theme = ActiveSupport::OrderedOptions.new
-    config.lookbook_theme.enabled = false
+    config.lookbook_theme.enabled = Rails.env.development?
     config.lookbook_theme.mount_path = "/lookbook"
     config.lookbook_theme.storage_key = nil
 

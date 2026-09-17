@@ -60,7 +60,8 @@ test('real Lookbook chrome supports system, persistence, OS changes and isolated
   await expect(frame.locator('html')).not.toHaveAttribute('data-lookbook-color-scheme')
   await expect(frame.locator('script[src*="_lookbook_theme"]')).toHaveCount(0)
 
-  const asset = await page.request.get('/tools/catalog/_lookbook_theme/0.1.0/theme.css')
+  const assetPath = await page.locator('link[data-lookbook-theme="assets"]').getAttribute('href')
+  const asset = await page.request.get(assetPath)
   expect(asset.status()).toBe(200)
   expect(await asset.text()).toContain('--lookbook-sidebar-bg')
   await page.goto('/')

@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name = "lookbook_theme"
   spec.version = LookbookTheme::VERSION
   spec.authors = ["lookbook_theme contributors"]
-  spec.summary = "Opt-in light, dark, and system chrome for Lookbook 2.3.15"
+  spec.summary = "Development light, dark, and system chrome for Lookbook 2.3.15"
   spec.description = "Development-only Lookbook chrome theming with packaged assets and Rack middleware."
   spec.homepage = "https://github.com/menloparking/lookbook_theme"
   spec.license = "MIT"

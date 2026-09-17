@@ -22,7 +22,7 @@ class MiddlewareTest < Minitest::Test
     app = LookbookTheme::Middleware.new(->(_) { flunk "asset reached downstream" })
     request = Rack::MockRequest.new(Rack::Lint.new(app))
     %w[css js].each do |extension|
-      path = "/lookbook/_lookbook_theme/0.1.0/theme.#{extension}"
+      path = "/lookbook/_lookbook_theme/#{LookbookTheme::VERSION}/theme.#{extension}"
       response = request.get(path)
       assert_equal 200, response.status
       assert_equal response.body.bytesize.to_s, response["content-length"]
@@ -47,7 +47,7 @@ class MiddlewareTest < Minitest::Test
   def test_custom_mount_and_storage_key_are_escaped
     app = middleware(mount_path: "/tools/ui", storage_key: 'custom"key')
     _, _, body = app.call(env("/tools/ui/inspect/example"))
-    assert_includes body.join, "/tools/ui/_lookbook_theme/0.1.0/theme.js"
+    assert_includes body.join, "/tools/ui/_lookbook_theme/#{LookbookTheme::VERSION}/theme.js"
     assert_includes body.join, 'data-storage-key="custom&quot;key"'
   end
 
@@ -127,8 +127,9 @@ class MiddlewareTest < Minitest::Test
   def test_unknown_and_traversal_asset_paths_never_read_files
     request = Rack::MockRequest.new(Rack::Lint.new(middleware))
     %w[other.js ../version.rb %2e%2e/LICENSE theme.js/extra].each do |name|
-      assert_equal 404, request.get("/lookbook/_lookbook_theme/0.1.0/#{name}").status
-      assert_equal "", request.head("/lookbook/_lookbook_theme/0.1.0/#{name}").body
+      path = "/lookbook/_lookbook_theme/#{LookbookTheme::VERSION}/#{name}"
+      assert_equal 404, request.get(path).status
+      assert_equal "", request.head(path).body
     end
   end
 

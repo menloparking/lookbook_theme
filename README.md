@@ -18,7 +18,7 @@ Install from GitHub; this release is not published to RubyGems:
 ```ruby
 group :development do
   gem "lookbook", "2.3.15"
-  gem "lookbook_theme", github: "menloparking/lookbook_theme", tag: "v0.1.0"
+  gem "lookbook_theme", github: "menloparking/lookbook_theme", tag: "v0.1.1"
 end
 ```
 
@@ -28,26 +28,27 @@ Mount Lookbook in `config/routes.rb`:
 mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
 ```
 
-Opt in in `config/environments/development.rb`:
+Restart Rails. The theme enables automatically in development. No assets need to
+be copied or compiled, and no `enabled = true` setting is required. The Railtie
+never installs middleware in test or production, even with `enabled = true`.
+
+To opt out, set this in `config/environments/development.rb`:
 
 ```ruby
-config.lookbook_theme.enabled = true
+config.lookbook_theme.enabled = false
 ```
-
-Restart Rails. No assets need to be copied or compiled. The Railtie does nothing
-unless enabled, and never installs middleware outside development.
 
 ## Configuration
 
 For a custom mount, use exactly the same URL in routes and configuration:
 
 ```ruby
-config.lookbook_theme.enabled = true
 config.lookbook_theme.mount_path = "/tools/catalog"
 config.lookbook_theme.storage_key = "my-project:lookbook:color-scheme"
 ```
 
-- `enabled`: defaults to `false`.
+- `enabled`: defaults to `true` in development and `false` elsewhere. Explicit
+  `false` disables automatic installation.
 - `mount_path`: defaults to `/lookbook`; absolute, non-root URL with no trailing
   slash. Segments may contain letters, digits, underscores, and hyphens.
 - `storage_key`: defaults to `lookbook-theme:<mount_path>:color-scheme`. Use a
@@ -58,8 +59,9 @@ values are `system`, `light`, and `dark`; invalid values fall back to `system`.
 When the gem's storage reads/writes fail, the selection survives for the current
 page. Lookbook itself may not work when all browser storage is disabled.
 
-For explicit middleware installation instead of the Railtie opt-in, use a
-development initializer and leave `enabled` false:
+For explicit middleware installation instead of automatic Railtie installation,
+first set `config.lookbook_theme.enabled = false` in
+`config/environments/development.rb`, then use a development initializer:
 
 ```ruby
 if Rails.env.development?
@@ -93,7 +95,7 @@ loads.
   chrome requests; modified responses discard stale validators and use
   `Cache-Control: no-store`. Streaming chrome is not supported.
 - Assets are served from an exact allowlist at
-  `<mount_path>/_lookbook_theme/0.1.0/theme.{css,js}`, independent of Rails
+  `<mount_path>/_lookbook_theme/0.1.1/theme.{css,js}`, independent of Rails
   assets. The reserved directory is owned by this gem. No user path is read from
   disk.
 - CSP must allow same-origin external scripts and styles. This gem adds no
@@ -119,6 +121,9 @@ make no third-party HTTP requests; browser traffic is restricted to the local
 dummy server. Dependency installation and browser downloads require network
 access. Browser tests cover desktop/mobile, real packaged assets, custom mounts,
 system/light/dark, persistence, OS changes, code panels, and preview isolation.
+Ruby integration tests cover automatic development enablement, explicit opt-out,
+test/production exclusion (including explicit opt-in), and default/custom
+mounts.
 
 This repository does not provision its own development container. The commands
 work in an existing Ruby/Node Linux development container; no broader host or

@@ -17,11 +17,13 @@ module Dummy
     config.lookbook.listen = false
     config.lookbook.live_updates = false
     config.lookbook.reload_on_change = false
-    config.lookbook_theme.enabled = ENV.fetch("THEME_ENABLED", "true") == "true"
-    config.lookbook_theme.mount_path = "/tools/catalog"
+    if ENV.key?("THEME_ENABLED")
+      config.lookbook_theme.enabled = ENV.fetch("THEME_ENABLED") == "true"
+    end
+    config.lookbook_theme.mount_path = ENV["THEME_MOUNT"] if ENV.key?("THEME_MOUNT")
 
     routes.append do
-      mount Lookbook::Engine, at: "/tools/catalog"
+      mount Lookbook::Engine, at: Rails.application.config.lookbook_theme.mount_path
       get "/", to: ->(_) { [200, {"content-type" => "text/html"}, ["<head></head>Host app"]] }
     end
   end

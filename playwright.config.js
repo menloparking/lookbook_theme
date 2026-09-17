@@ -4,6 +4,7 @@ module.exports = defineConfig({
   testDir: './test/browser',
   use: { baseURL: 'http://127.0.0.1:4317' },
   webServer: {
+    env: { RAILS_ENV: 'development', THEME_MOUNT: '/tools/catalog' },
     command: 'bundle exec rackup -I lib -s puma -o 127.0.0.1 -p 4317 test/dummy/config.ru',
     url: 'http://127.0.0.1:4317',
     reuseExistingServer: false
